@@ -8,4 +8,6 @@ class Cell {
   bool get isEmpty => marker == null;
 
   void delete() => marker = null;
+
+  void place(Marker marker) => marker = marker;
 }

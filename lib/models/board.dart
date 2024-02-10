@@ -1,4 +1,5 @@
 import 'package:tic_tac_toe/models/cell.dart';
+import 'package:tic_tac_toe/models/marker.dart';
 
 class Board {
   final int size;
@@ -9,4 +10,6 @@ class Board {
   }
 
   void delete(int x, int y) => cells[y][x].delete();
+
+  void place(Marker marker) => cells[marker.y][marker.x].place(marker);
 }

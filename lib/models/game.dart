@@ -25,4 +25,9 @@ class Game {
     board.delete(popMarker.x, popMarker.y);
     logs.add(popMarker);
   }
+
+  void placeMarker(int x, int y){
+    final marker = Marker(player: nowTurn, x: x, y: y);
+    board.place(marker);
+  }
 }
