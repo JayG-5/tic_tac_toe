@@ -12,4 +12,16 @@ class Cell {
   void place(Marker marker) => this.marker = marker;
 
   bool isRight(Marker marker) => this.marker == marker;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'marker': marker?.toJson(),
+    };
+  }
+
+  factory Cell.fromJson(Map<String, dynamic> json) {
+    return Cell(
+      marker: json['marker'] != null ? Marker.fromJson(json['marker']) : null,
+    );
+  }
 }

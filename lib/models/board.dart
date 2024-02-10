@@ -12,6 +12,26 @@ class Board {
     cells = List.generate(size, (_) => List.generate(size, (_) => Cell()));
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'size': size,
+      'cells': cells
+          .map((row) => row.map((cell) => cell.toJson()).toList())
+          .toList(),
+    };
+  }
+
+  factory Board.fromJson(Map<String, dynamic> json) {
+    final size = json['size'];
+    final cellsJson = json['cells'] as List;
+    final cells = cellsJson
+        .map((row) =>
+            (row as List).map((cellJson) => Cell.fromJson(cellJson)).toList())
+        .toList();
+
+    return Board(size: size)..cells = cells;
+  }
+
   void delete(int x, int y) => cells[y][x].delete();
 
   void place(Marker marker) => cells[marker.y][marker.x].place(marker);
