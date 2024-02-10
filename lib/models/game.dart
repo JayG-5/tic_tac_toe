@@ -30,8 +30,8 @@ class Game {
   void placeMarker(int x, int y) {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
-    nextTurn();
     board.checkWinner(marker, vCondition);
+    nextTurn();
   }
 
   void nextTurn() =>
