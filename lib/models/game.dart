@@ -17,7 +17,8 @@ class Game {
       {required this.vCondition, required this.players, this.firstPlayer}) {
     startTime = DateTime.now();
     board = Board(size: size);
-    nowTurn = firstPlayer ?? (startTime.second.isOdd ? players.first : players.last);
+    nowTurn =
+        firstPlayer ?? (startTime.second.isOdd ? players.first : players.last);
   }
 
   void backsies() {
@@ -26,8 +27,12 @@ class Game {
     logs.add(popMarker);
   }
 
-  void placeMarker(int x, int y){
+  void placeMarker(int x, int y) {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
+    nextTurn();
   }
+
+  void nextTurn() =>
+      nowTurn = players.firstWhere((element) => element != nowTurn);
 }
