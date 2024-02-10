@@ -6,14 +6,18 @@ class Game {
   final int vCondition;
   final List<Player> players;
   final Player? firstPlayer;
+
   late final DateTime startTime;
   late final Board board;
+  late Player nowTurn;
+
   final List<Marker> logs = [];
 
   Game(int size,
       {required this.vCondition, required this.players, this.firstPlayer}) {
     startTime = DateTime.now();
     board = Board(size: size);
+    nowTurn = firstPlayer ?? (startTime.second.isOdd ? players.first : players.last);
   }
 
   void backsies() {
