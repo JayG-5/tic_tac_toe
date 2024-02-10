@@ -7,4 +7,6 @@ class Board {
   Board({required this.size}) {
     cells = List.generate(size, (_) => List.generate(size, (_) => Cell()));
   }
+
+  void delete(int x, int y) => cells[y][x].delete();
 }

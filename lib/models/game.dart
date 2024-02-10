@@ -15,4 +15,10 @@ class Game {
     startTime = DateTime.now();
     board = Board(size: size);
   }
+
+  void backsies() {
+    final popMarker = logs.last.copyWith(status: false);
+    board.delete(popMarker.x, popMarker.y);
+    logs.add(popMarker);
+  }
 }
