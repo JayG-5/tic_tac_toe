@@ -25,6 +25,7 @@ class Game {
     final popMarker = logs.last.copyWith(status: false);
     board.delete(popMarker.x, popMarker.y);
     logs.add(popMarker);
+    nextTurn();
   }
 
   void placeMarker(int x, int y) {
