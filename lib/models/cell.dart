@@ -9,5 +9,7 @@ class Cell {
 
   void delete() => marker = null;
 
-  void place(Marker marker) => marker = marker;
+  void place(Marker marker) => this.marker = marker;
+
+  bool isRight(Marker marker) => this.marker == marker;
 }

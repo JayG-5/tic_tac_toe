@@ -31,8 +31,10 @@ class Game {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
     nextTurn();
+    board.checkWinner(marker, vCondition);
   }
 
   void nextTurn() =>
       nowTurn = players.firstWhere((element) => element != nowTurn);
+
 }
