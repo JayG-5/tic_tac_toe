@@ -30,4 +30,6 @@ enum Routes {
       );
 
   static List<GetPage> get pageBuilders => Routes.values.map((e) => e.pageBuilder).toList();
+  
+  void to() => Get.toNamed(name);
 }
