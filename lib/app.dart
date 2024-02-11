@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tic_tac_toe/enums/routes.dart';
+import 'package:tic_tac_toe/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,8 +8,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: Routes.home.name,
-      getPages: Routes.pageBuilders,
+      initialRoute: '/',
+      getPages: AppRoutes.routes(),
     );
   }
 }
