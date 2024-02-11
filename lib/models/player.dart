@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Player {
-  final Icon marker;
+  final IconData iconData;
   final Color color;
   int backsies;
 
-  Player({required this.marker, required this.color, required this.backsies});
+  Player({required this.iconData, required this.color, required this.backsies});
 
   Player copyWith({
-    Icon? marker,
+    IconData? iconData,
     Color? color,
     int? backsies,
   }) {
     return Player(
-      marker: marker ?? this.marker,
+      iconData: iconData ?? this.iconData,
       color: color ?? this.color,
       backsies: backsies ?? this.backsies,
     );
@@ -29,7 +29,7 @@ class Player {
 
   Map<String, dynamic> toJson() {
     return {
-      'marker': marker.icon?.codePoint ?? 0,
+      'marker': iconData.codePoint,
       'color': color.value,
       'backsies': backsies,
     };
@@ -37,7 +37,7 @@ class Player {
 
   factory Player.fromJson(Map<String, dynamic> json) {
     return Player(
-      marker: Icon(IconData(json['marker'], fontFamily: 'MaterialIcons')),
+      iconData: IconData(json['iconData'], fontFamily: 'MaterialIcons'),
       color: Color(json['color']),
       backsies: json['backsies'],
     );
