@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tic_tac_toe/app.dart';
+import 'package:tic_tac_toe/pages/home.dart';
 
 enum Routes {
-  home('/', widget: MyApp());
+  home('/', widget: HomePage());
 
   final String name;
   final Widget widget;
