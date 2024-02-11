@@ -58,4 +58,16 @@ class SettingPageController extends GetxController {
     }
     backsies.value = result;
   }
+
+  void onPressFirstPlayer(bool isRight) {
+    final List<Player?> firstPlayerSelectList = [null, ...players.value];
+    final nowIndex = firstPlayerSelectList.indexOf(firstPlayer.value);
+    try {
+      firstPlayer.value =
+      firstPlayerSelectList[isRight ? nowIndex + 1 : nowIndex - 1];
+    } catch (e) {
+      firstPlayer.value =
+      isRight ? firstPlayerSelectList.first : firstPlayerSelectList.last;
+    }
+  }
 }
