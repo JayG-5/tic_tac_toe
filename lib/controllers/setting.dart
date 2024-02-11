@@ -32,6 +32,14 @@ class SettingPageController extends GetxController {
     });
   }
 
+  void onPressBoardSize(int size) {
+    if(vCondition.value > size){
+      vCondition.value = size;
+      //TODO: 스낵바
+    }
+    boardSize.value = size;
+  }
+
   void onPressVCondition(bool isPlus) {
     final result = isPlus ? vCondition.value += 1 : vCondition.value -= 1;
     if (!(result >= GameSetting.VICTORY_CONDITION_MIN.value &&
