@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tic_tac_toe/enums/color.dart';
 import 'package:tic_tac_toe/enums/game_setting.dart';
 import 'package:tic_tac_toe/enums/icon.dart';
+import 'package:tic_tac_toe/models/board.dart';
 import 'package:tic_tac_toe/models/game.dart';
 import 'package:tic_tac_toe/models/player.dart';
 
@@ -76,13 +77,20 @@ class SettingPageController extends GetxController {
         players.value.map((e) => e == player ? updatedPlayer : e).toList();
   }
 
-  Game getGame() => Game(boardSize.value,
-      vCondition: vCondition.value,
-      firstPlayer: firstPlayer.value == null ? null : players[firstPlayer.value!] ,
-      players: players.value.map((e) {
-        e.backsies = backsies.value;
-        return e;
-      }).toList());
+  Game getGame() {
+    final Player? firstPlayer = this.firstPlayer.value == null ? null : players[this.firstPlayer.value!];
+    final DateTime now = DateTime.now();
+    return Game(
+        board: Board(size: boardSize.value),
+        vCondition: vCondition.value,
+        firstPlayer:firstPlayer,
+        nowTurn: firstPlayer ?? (now.second.isOdd ? players.first : players.last),
+        startTime: now,
+        players: players.value.map((e) {
+          e.backsies = backsies.value;
+          return e;
+        }).toList());
+  }
 }
 
 class SettingPageBindings extends Bindings {

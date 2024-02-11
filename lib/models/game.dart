@@ -6,42 +6,43 @@ class Game {
   final int vCondition;
   final List<Player> players;
   final Player? firstPlayer;
+  final DateTime startTime;
+  final Board board;
+  Player nowTurn;
+  List<Marker>? logs;
 
-  late final DateTime startTime;
-  late final Board board;
-  late Player nowTurn;
+  Game({
+    required this.vCondition,
+    required this.players,
+    this.firstPlayer,
+    required this.startTime, // 생성자를 통해 초기화
+    required this.board,
+    required this.nowTurn,
+    this.logs,
+  }){
 
-  final List<Marker> logs = [];
-
-  Game(int size,
-      {required this.vCondition, required this.players, this.firstPlayer}) {
-    startTime = DateTime.now();
-    board = Board(size: size);
-    nowTurn =
-        firstPlayer ?? (startTime.second.isOdd ? players.first : players.last);
+    logs ??= [];
   }
 
 
+
   Game copyWith({
-    int? size,
     int? vCondition,
     List<Player>? players,
     Player? firstPlayer,
-    DateTime? startTime,
     Board? board,
     Player? nowTurn,
     List<Marker>? logs,
   }) {
     return Game(
-      size ?? this.board.size,
       vCondition: vCondition ?? this.vCondition,
       players: players ?? this.players,
       firstPlayer: firstPlayer ?? this.firstPlayer,
-    )
-      ..startTime = startTime ?? this.startTime
-      ..board = board ?? this.board
-      ..nowTurn = nowTurn ?? this.nowTurn
-      ..logs.addAll(logs ?? this.logs);
+      startTime: startTime,
+      board: board ?? this.board,
+      nowTurn: nowTurn ?? this.nowTurn,
+      logs: logs ?? this.logs,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -52,45 +53,38 @@ class Game {
       'startTime': startTime.toIso8601String(),
       'board': board.toJson(),
       'nowTurn': nowTurn.toJson(),
-      'logs': logs.map((log) => log.toJson()).toList(),
+      'logs': logs!.map((log) => log.toJson()).toList(),
     };
   }
 
   factory Game.fromJson(Map<String, dynamic> json) {
-    final game = Game(
-      json['board'].length,
+    return Game(
       vCondition: json['vCondition'],
-      players: json['players']
-          .map((playerJson) => Player.fromJson(playerJson))
-          .toList(),
-      firstPlayer: json['firstPlayer'] != null
-          ? Player.fromJson(json['firstPlayer'])
-          : null,
+      players: (json['players'] as List).map((e) => Player.fromJson(e)).toList(),
+      firstPlayer: json['firstPlayer'] != null ? Player.fromJson(json['firstPlayer']) : null,
+      startTime: DateTime.parse(json['startTime']),
+      board: Board.fromJson(json['board']),
+      nowTurn: Player.fromJson(json['nowTurn']),
+      logs: (json['logs'] as List).map((e) => Marker.fromJson(e)).toList(),
     );
-    game.startTime = DateTime.parse(json['startTime']);
-    game.board = Board.fromJson(json['board']);
-    game.nowTurn = Player.fromJson(json['nowTurn']);
-    game.logs.addAll(json['logs'].map((logJson) => Marker.fromJson(logJson)));
-
-    return game;
   }
 
   void backsies() {
-    final popMarker = logs.last.copyWith(status: false);
+    final popMarker = logs!.last.copyWith(status: false);
     final isBacksies = popMarker.player.doBacksies();
-    if(!isBacksies){
+    if (!isBacksies) {
       //TODO: 무르기 실패 랜더링 다이얼로그나 스낵바
       return;
     }
     board.delete(popMarker.x, popMarker.y);
-    logs.add(popMarker);
+    logs!.add(popMarker);
     nextTurn();
   }
 
   void placeMarker(int x, int y) {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
-    logs.add(marker);
+    logs!.add(marker);
     // board.checkWinner(marker, vCondition);
     nextTurn();
   }

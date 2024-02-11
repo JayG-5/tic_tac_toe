@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tic_tac_toe/controllers/setting.dart';
 import 'package:tic_tac_toe/enums/color.dart';
 import 'package:tic_tac_toe/enums/icon.dart';
+import 'package:tic_tac_toe/models/game.dart';
 
 class SettingPage extends GetView<SettingPageController> {
   const SettingPage({super.key});
@@ -130,8 +131,14 @@ class SettingPage extends GetView<SettingPageController> {
           padding: EdgeInsets.zero,
           child: Row(
             children: [
-              ElevatedButton(onPressed: () {}, child: const Text('취소')),
-              ElevatedButton(onPressed: () {}, child: const Text('게임 시작')),
+              ElevatedButton(
+                  onPressed: () => Get.back(), child: const Text('취소')),
+              ElevatedButton(
+                  onPressed: () {
+                    final Game game = controller.getGame();
+                    Get.offNamed('/game', arguments: {'game': game});
+                  },
+                  child: const Text('게임 시작')),
             ],
           ),
         ),

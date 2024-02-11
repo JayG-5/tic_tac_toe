@@ -14,8 +14,12 @@ class HomePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: () => Get.toNamed('/setting'), child: const Text('게임 시작')),
-              ElevatedButton(onPressed: (){}, child: const Text('기록된 게임 보기')),
+              ElevatedButton(
+                  onPressed: () => Get.toNamed('/setting'),
+                  child: const Text('게임 시작')),
+              ElevatedButton(
+                  onPressed: () => Get.toNamed('/log'),
+                  child: const Text('기록된 게임 보기')),
             ],
           ),
         ),
