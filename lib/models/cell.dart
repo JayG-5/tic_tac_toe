@@ -21,7 +21,7 @@ class Cell {
 
   void place(Marker marker) => this.marker = marker;
 
-  bool isRight(Marker marker) => this.marker == marker;
+  bool isRight(Marker marker) => marker.player.color.value == this.marker?.player.color.value;
 
   Map<String, dynamic> toJson() {
     return {

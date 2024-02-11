@@ -85,7 +85,7 @@ class Game {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
     logs!.add(marker);
-    // board.checkWinner(marker, vCondition);
+    board.checkWinner(marker, vCondition);
     nextTurn();
   }
 
