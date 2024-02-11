@@ -18,15 +18,15 @@ class SettingPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    boardSizes.value = List.generate(
+    boardSizes = RxList<int>(List.generate(
         GameSetting.BOARD_SIZE_MAX.value - GameSetting.BOARD_SIZE_MIN.value + 1,
-        (index) => GameSetting.BOARD_SIZE_MIN.value + index);
+        (index) => GameSetting.BOARD_SIZE_MIN.value + index));
 
-    players.value = List.generate(2, (index) {
+    players = RxList<Player>(List.generate(2, (index) {
       final iconData = PlayerIcon.values[index].iconData;
       final color = PlayerColor.values[index].color;
       return Player(iconData: iconData, color: color, backsies: backsies.value);
-    });
+    }));
   }
 
   void onPressBoardSize(int size) {
@@ -76,11 +76,18 @@ class SettingPageController extends GetxController {
         players.value.map((e) => e == player ? updatedPlayer : e).toList();
   }
 
-  Game getGame() =>Game(boardSize.value,
+  Game getGame() => Game(boardSize.value,
       vCondition: vCondition.value,
       firstPlayer: firstPlayer.value,
       players: players.value.map((e) {
         e.backsies = backsies.value;
         return e;
       }).toList());
+}
+
+class SettingPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => SettingPageController());
+  }
 }
