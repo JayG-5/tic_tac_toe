@@ -7,6 +7,18 @@ class Player {
 
   Player({required this.marker, required this.color, required this.backsies});
 
+  Player copyWith({
+    Icon? marker,
+    Color? color,
+    int? backsies,
+  }) {
+    return Player(
+      marker: marker ?? this.marker,
+      color: color ?? this.color,
+      backsies: backsies ?? this.backsies,
+    );
+  }
+
   bool doBacksies(){
     if(backsies > 0){
       backsies -= 1;
