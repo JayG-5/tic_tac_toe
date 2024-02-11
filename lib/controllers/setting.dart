@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:tic_tac_toe/enums/color.dart';
 import 'package:tic_tac_toe/enums/game_setting.dart';
 import 'package:tic_tac_toe/enums/icon.dart';
-import 'package:tic_tac_toe/models/game.dart';
 import 'package:tic_tac_toe/models/player.dart';
 
 class SettingPageController extends GetxController {
@@ -33,7 +32,7 @@ class SettingPageController extends GetxController {
   }
 
   void onPressBoardSize(int size) {
-    if(vCondition.value > size){
+    if (vCondition.value > size) {
       vCondition.value = size;
       //TODO: 스낵바
     }
@@ -45,7 +44,18 @@ class SettingPageController extends GetxController {
     if (!(result >= GameSetting.VICTORY_CONDITION_MIN.value &&
         result <= boardSize.value)) {
       //TODO: 예외처리
+      return;
     }
     vCondition.value = result;
+  }
+
+  void onPressBacksies(bool isPlus) {
+    final result = isPlus ? backsies.value += 1 : backsies.value -= 1;
+    if (!(result >= GameSetting.BACKSIES_MIN.value &&
+        result <= GameSetting.BACKSIES_MAX.value)) {
+      //TODO: 예외처리
+      return;
+    }
+    backsies.value = result;
   }
 }
