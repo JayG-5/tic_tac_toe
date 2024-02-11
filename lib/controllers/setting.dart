@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tic_tac_toe/enums/color.dart';
 import 'package:tic_tac_toe/enums/game_setting.dart';
 import 'package:tic_tac_toe/enums/icon.dart';
+import 'package:tic_tac_toe/models/game.dart';
 import 'package:tic_tac_toe/models/player.dart';
 
 class SettingPageController extends GetxController {
@@ -74,4 +75,12 @@ class SettingPageController extends GetxController {
     players.value =
         players.value.map((e) => e == player ? updatedPlayer : e).toList();
   }
+
+  Game getGame() =>Game(boardSize.value,
+      vCondition: vCondition.value,
+      firstPlayer: firstPlayer.value,
+      players: players.value.map((e) {
+        e.backsies = backsies.value;
+        return e;
+      }).toList());
 }
