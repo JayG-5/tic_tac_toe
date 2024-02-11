@@ -13,7 +13,7 @@ class SettingPageController extends GetxController {
   RxInt boardSize = RxInt(GameSetting.BOARD_SIZE_DEFAULT.value);
   RxInt vCondition = RxInt(GameSetting.VICTORY_CONDITION_DEFAULT.value);
   RxInt backsies = RxInt(GameSetting.BACKSIES_DEFAULT.value);
-  Rx<Player?> firstPlayer = Rx<Player?>(null);
+  Rx<int?> firstPlayer = Rx<int?>(null);
 
   @override
   void onInit() {
@@ -58,7 +58,7 @@ class SettingPageController extends GetxController {
   }
 
   void onPressFirstPlayer(bool isRight) {
-    final List<Player?> firstPlayerSelectList = [null, ...players.value];
+    final List<int?> firstPlayerSelectList = [null, 0, 1];
     final nowIndex = firstPlayerSelectList.indexOf(firstPlayer.value);
     try {
       firstPlayer.value =
@@ -78,7 +78,7 @@ class SettingPageController extends GetxController {
 
   Game getGame() => Game(boardSize.value,
       vCondition: vCondition.value,
-      firstPlayer: firstPlayer.value,
+      firstPlayer: firstPlayer.value == null ? null : players[firstPlayer.value!] ,
       players: players.value.map((e) {
         e.backsies = backsies.value;
         return e;

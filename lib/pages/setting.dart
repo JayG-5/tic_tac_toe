@@ -16,9 +16,12 @@ class SettingPage extends GetView<SettingPageController> {
           children: [
             DropdownButton(
                 value: controller.players[index].iconData,
-                items: PlayerIcon.getNonUseIcons(controller.players,controller.players[index].iconData)
+                items: PlayerIcon.getNonUseIcons(
+                        controller.players, controller.players[index].iconData)
                     .map((e) => DropdownMenuItem(
-                          onTap: () => controller.updatePlayer(controller.players[index],iconData: e),
+                          onTap: () => controller.updatePlayer(
+                              controller.players[index],
+                              iconData: e),
                           value: e,
                           child: Icon(e),
                         ))
@@ -26,9 +29,12 @@ class SettingPage extends GetView<SettingPageController> {
                 onChanged: (value) {}),
             DropdownButton(
                 value: controller.players[index].color,
-                items: PlayerColor.getNonUseColors(controller.players,controller.players[index].color)
+                items: PlayerColor.getNonUseColors(
+                        controller.players, controller.players[index].color)
                     .map((e) => DropdownMenuItem(
-                  onTap: () => controller.updatePlayer(controller.players[index],color: e),
+                          onTap: () => controller.updatePlayer(
+                              controller.players[index],
+                              color: e),
                           value: e,
                           child: Icon(
                             Icons.square,
@@ -76,20 +82,20 @@ class SettingPage extends GetView<SettingPageController> {
                   Row(children: [
                     IconButton(
                         onPressed: () => controller.onPressVCondition(false),
-                        icon: Icon(Icons.remove)),
+                        icon: const Icon(Icons.remove)),
                     Text(controller.vCondition.value.toString()),
                     IconButton(
                         onPressed: () => controller.onPressVCondition(true),
-                        icon: Icon(Icons.add)),
+                        icon: const Icon(Icons.add)),
                   ]),
                   Row(children: [
                     IconButton(
                         onPressed: () => controller.onPressBacksies(false),
-                        icon: Icon(Icons.remove)),
+                        icon: const Icon(Icons.remove)),
                     Text(controller.backsies.value.toString()),
                     IconButton(
                         onPressed: () => controller.onPressBacksies(true),
-                        icon: Icon(Icons.add)),
+                        icon: const Icon(Icons.add)),
                   ]),
                   Row(
                     children: [
@@ -100,16 +106,20 @@ class SettingPage extends GetView<SettingPageController> {
                   Row(children: [
                     IconButton(
                         onPressed: () => controller.onPressFirstPlayer(false),
-                        icon: Icon(Icons.arrow_back_ios)),
+                        icon: const Icon(Icons.arrow_back_ios)),
                     Icon(
-                      controller.firstPlayer.value?.iconData ??
-                          Icons.question_mark,
-                      color:
-                          controller.firstPlayer.value?.color ?? Colors.black,
+                      controller.firstPlayer.value == null
+                          ? Icons.question_mark
+                          : controller
+                              .players[controller.firstPlayer.value!].iconData,
+                      color: controller.firstPlayer.value == null
+                          ? Colors.black
+                          : controller
+                              .players[controller.firstPlayer.value!].color,
                     ),
                     IconButton(
                         onPressed: () => controller.onPressFirstPlayer(true),
-                        icon: Icon(Icons.arrow_forward_ios)),
+                        icon: const Icon(Icons.arrow_forward_ios)),
                   ]),
                 ],
               ),
@@ -120,8 +130,8 @@ class SettingPage extends GetView<SettingPageController> {
           padding: EdgeInsets.zero,
           child: Row(
             children: [
-              ElevatedButton(onPressed: () {}, child: Text('취소')),
-              ElevatedButton(onPressed: () {}, child: Text('게임 시작')),
+              ElevatedButton(onPressed: () {}, child: const Text('취소')),
+              ElevatedButton(onPressed: () {}, child: const Text('게임 시작')),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ enum PlayerColor {
   red(Colors.red),
   green(Colors.green),
   orange(Colors.orange),
-  black(Colors.black);
+  purple(Colors.deepPurple);
 
   final Color color;
 
