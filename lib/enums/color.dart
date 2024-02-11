@@ -12,12 +12,13 @@ enum PlayerColor {
 
   const PlayerColor(this.color);
 
-  List<Color> getNonUseColors(List<Player> players) {
+  static List<Color> getNonUseColors(List<Player> players, Color nowColor) {
     final playerColors = players.map((e) => e.color.value).toList();
-    final nonUseColors = PlayerColor.values
-        .where((element) => !playerColors.contains(element.color.value))
-        .map((e) => e.color)
-        .toList();
+    final nonUseColors = [nowColor] +
+        PlayerColor.values
+            .where((element) => !playerColors.contains(element.color.value))
+            .map((e) => e.color)
+            .toList();
     return nonUseColors;
   }
 }

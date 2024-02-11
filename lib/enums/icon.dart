@@ -12,9 +12,9 @@ enum PlayerIcon {
 
   const PlayerIcon(this.iconData);
 
-  List<IconData> getNonUseIcons(List<Player> players) {
-    final playerIcons = players.map((e) => e.marker.icon?.codePoint).toList();
-    final nonUseIcons = PlayerIcon.values
+  static List<IconData> getNonUseIcons(List<Player> players,IconData nowIcon) {
+    final playerIcons = players.map((e) => e.iconData.codePoint).toList();
+    final nonUseIcons = [nowIcon] + PlayerIcon.values
         .where((element) => !playerIcons.contains(element.iconData.codePoint))
         .map((e) => e.iconData)
         .toList();
