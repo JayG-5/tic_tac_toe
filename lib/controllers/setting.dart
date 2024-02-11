@@ -22,12 +22,9 @@ class SettingPageController extends GetxController {
         (index) => GameSetting.BOARD_SIZE_MIN.value + index);
 
     players.value = List.generate(2, (index) {
-      final icon = PlayerIcon.values[index].iconData;
+      final iconData = PlayerIcon.values[index].iconData;
       final color = PlayerColor.values[index].color;
-      return Player(
-          marker: Icon(icon, color: color),
-          color: color,
-          backsies: backsies.value);
+      return Player(iconData: iconData, color: color, backsies: backsies.value);
     });
   }
 
@@ -64,10 +61,17 @@ class SettingPageController extends GetxController {
     final nowIndex = firstPlayerSelectList.indexOf(firstPlayer.value);
     try {
       firstPlayer.value =
-      firstPlayerSelectList[isRight ? nowIndex + 1 : nowIndex - 1];
+          firstPlayerSelectList[isRight ? nowIndex + 1 : nowIndex - 1];
     } catch (e) {
       firstPlayer.value =
-      isRight ? firstPlayerSelectList.first : firstPlayerSelectList.last;
+          isRight ? firstPlayerSelectList.first : firstPlayerSelectList.last;
     }
+  }
+
+  void updatePlayer(Player player, {IconData? iconData, Color? color}) {
+    final Player updatedPlayer =
+        player.copyWith(iconData: iconData, color: color);
+    players.value =
+        players.value.map((e) => e == player ? updatedPlayer : e).toList();
   }
 }
