@@ -9,7 +9,14 @@ class Board {
   late final List<List<Cell>> cells;
 
   Board({required this.size}) {
-    cells = List.generate(size, (_) => List.generate(size, (_) => Cell()));
+    cells = List.generate(
+        size, (y) => List.generate(size, (x) => Cell(x: x, y: y)));
+  }
+
+  Board copyWith({int? size}) {
+    return Board(
+      size: size ?? this.size,
+    );
   }
 
   Map<String, dynamic> toJson() {

@@ -21,6 +21,29 @@ class Game {
         firstPlayer ?? (startTime.second.isOdd ? players.first : players.last);
   }
 
+
+  Game copyWith({
+    int? size,
+    int? vCondition,
+    List<Player>? players,
+    Player? firstPlayer,
+    DateTime? startTime,
+    Board? board,
+    Player? nowTurn,
+    List<Marker>? logs,
+  }) {
+    return Game(
+      size ?? this.board.size,
+      vCondition: vCondition ?? this.vCondition,
+      players: players ?? this.players,
+      firstPlayer: firstPlayer ?? this.firstPlayer,
+    )
+      ..startTime = startTime ?? this.startTime
+      ..board = board ?? this.board
+      ..nowTurn = nowTurn ?? this.nowTurn
+      ..logs.addAll(logs ?? this.logs);
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'vCondition': vCondition,
@@ -68,7 +91,7 @@ class Game {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
     logs.add(marker);
-    board.checkWinner(marker, vCondition);
+    // board.checkWinner(marker, vCondition);
     nextTurn();
   }
 
