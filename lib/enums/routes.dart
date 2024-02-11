@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tic_tac_toe/pages/game.dart';
 import 'package:tic_tac_toe/pages/home.dart';
+import 'package:tic_tac_toe/pages/log.dart';
 import 'package:tic_tac_toe/pages/setting.dart';
 
 enum Routes {
   home('/', widget: HomePage()),
   setting('/setting', widget: SettingPage()),
   game('/game', widget: GamePage()),
+  log('/log', widget: LogPage()),
   ;
 
   final String name;
