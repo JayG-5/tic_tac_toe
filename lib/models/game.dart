@@ -54,6 +54,11 @@ class Game {
 
   void backsies() {
     final popMarker = logs.last.copyWith(status: false);
+    final isBacksies = popMarker.player.doBacksies();
+    if(!isBacksies){
+      //TODO: 무르기 실패 랜더링 다이얼로그나 스낵바
+      return;
+    }
     board.delete(popMarker.x, popMarker.y);
     logs.add(popMarker);
     nextTurn();

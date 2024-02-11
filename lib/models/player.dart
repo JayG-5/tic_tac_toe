@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 class Player {
   final Icon marker;
   final Color color;
-  final int backsies;
+  int backsies;
 
   Player({required this.marker, required this.color, required this.backsies});
+
+  bool doBacksies(){
+    if(backsies > 0){
+      backsies -= 1;
+      return true;
+    }
+    return false;
+  }
 
   Map<String, dynamic> toJson() {
     return {
