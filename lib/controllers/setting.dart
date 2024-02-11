@@ -3,18 +3,25 @@ import 'package:get/get.dart';
 import 'package:tic_tac_toe/enums/color.dart';
 import 'package:tic_tac_toe/enums/game_setting.dart';
 import 'package:tic_tac_toe/enums/icon.dart';
+import 'package:tic_tac_toe/models/game.dart';
 import 'package:tic_tac_toe/models/player.dart';
 
 class SettingPageController extends GetxController {
-  RxList<int> boardSizes = RxList<int>([]);
+  late RxList<int> boardSizes;
+  late RxList<Player> players;
+
+  RxInt boardSize = RxInt(GameSetting.BOARD_SIZE_DEFAULT.value);
   RxInt vCondition = RxInt(GameSetting.VICTORY_CONDITION_DEFAULT.value);
   RxInt backsies = RxInt(GameSetting.BACKSIES_DEFAULT.value);
-  RxList<Player> players = RxList<Player>([]);
   Rx<Player?> firstPlayer = Rx<Player?>(null);
 
   @override
   void onInit() {
     super.onInit();
+    boardSizes.value = List.generate(
+        GameSetting.BOARD_SIZE_MAX.value - GameSetting.BOARD_SIZE_MIN.value + 1,
+        (index) => GameSetting.BOARD_SIZE_MIN.value + index);
+
     players.value = List.generate(2, (index) {
       final icon = PlayerIcon.values[index].iconData;
       final color = PlayerColor.values[index].color;
@@ -23,5 +30,14 @@ class SettingPageController extends GetxController {
           color: color,
           backsies: backsies.value);
     });
+  }
+
+  void onPressVCondition(bool isPlus) {
+    final result = isPlus ? vCondition.value += 1 : vCondition.value -= 1;
+    if (!(result >= GameSetting.VICTORY_CONDITION_MIN.value &&
+        result <= boardSize.value)) {
+      //TODO: 예외처리
+    }
+    vCondition.value = result;
   }
 }
