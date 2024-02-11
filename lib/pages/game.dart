@@ -45,7 +45,12 @@ class GamePage extends GetView<GamePageController> {
                     ),
                   ], style: const TextStyle(color: Colors.black)),
                 ),
-                ElevatedButton(onPressed: () {}, child: const Text('무르기')),
+                ElevatedButton(
+                    onPressed: () =>controller.backsies(),
+                    child: Text(
+                      '무르기\n(${controller.game.value!.nowTurn.backsies}회 남음)',
+                      textAlign: TextAlign.center,
+                    )),
                 Container(
                   color: Colors.grey,
                   width: boxSize,

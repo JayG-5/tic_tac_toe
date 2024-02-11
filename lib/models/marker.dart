@@ -48,7 +48,6 @@ class Marker {
       x: x ?? this.x,
       y: y ?? this.y,
     )
-      ..status = status ?? this.status
-      ..dateTime = DateTime.now();
+      ..status = status ?? this.status;
   }
 }

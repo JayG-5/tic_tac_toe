@@ -16,6 +16,11 @@ class GamePageController extends GetxController{
     game.value!.placeMarker(x, y);
     game.value = game.value?.copyWith();
   }
+
+  void backsies(){
+    game.value!.backsies();
+    game.value = game.value?.copyWith();
+  }
 }
 
 class GamePageBinding extends Bindings {
