@@ -1,57 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tic_tac_toe/controllers/setting.dart';
-import 'package:tic_tac_toe/enums/color.dart';
-import 'package:tic_tac_toe/enums/icon.dart';
 import 'package:tic_tac_toe/models/game.dart';
+import 'package:tic_tac_toe/widgets/common/gap.dart';
+import 'package:tic_tac_toe/widgets/setting/player_marker.dart';
 
 class SettingPage extends GetView<SettingPageController> {
   const SettingPage({super.key});
 
-  Widget playerMarker(int index) {
-    return Column(
-      children: [
-        Icon(controller.players[index].iconData,
-            color: controller.players[index].color),
-        Row(
-          children: [
-            DropdownButton(
-                value: controller.players[index].iconData,
-                items: PlayerIcon.getNonUseIcons(
-                        controller.players, controller.players[index].iconData)
-                    .map((e) => DropdownMenuItem(
-                          onTap: () => controller.updatePlayer(
-                              controller.players[index],
-                              iconData: e),
-                          value: e,
-                          child: Icon(e),
-                        ))
-                    .toList(),
-                onChanged: (value) {}),
-            DropdownButton(
-                value: controller.players[index].color,
-                items: PlayerColor.getNonUseColors(
-                        controller.players, controller.players[index].color)
-                    .map((e) => DropdownMenuItem(
-                          onTap: () => controller.updatePlayer(
-                              controller.players[index],
-                              color: e),
-                          value: e,
-                          child: Icon(
-                            Icons.square,
-                            color: e,
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (value) {}),
-          ],
-        )
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final buttonWidth = (MediaQuery.of(context).size.width - 56) / 2;
     return Obx(
       () => Scaffold(
         appBar: AppBar(),
@@ -60,7 +19,10 @@ class SettingPage extends GetView<SettingPageController> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text('보드 사이즈',
+                      style: Theme.of(context).textTheme.titleMedium),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Wrap(
@@ -69,10 +31,15 @@ class SettingPage extends GetView<SettingPageController> {
                           .map((element) => ActionChip(
                                 label: Text(
                                   '$element x $element',
+                                  style: TextStyle(
+                                    color: element != controller.boardSize.value
+                                        ? Colors.deepPurple
+                                        : Colors.white,
+                                  ),
                                 ),
                                 backgroundColor:
                                     element == controller.boardSize.value
-                                        ? Colors.blue
+                                        ? Colors.deepPurple
                                         : Colors.white,
                                 onPressed: () =>
                                     controller.onPressBoardSize(element),
@@ -80,6 +47,8 @@ class SettingPage extends GetView<SettingPageController> {
                           .toList(),
                     ),
                   ),
+                  Gap.height(16),
+                  Text('승리 조건', style: Theme.of(context).textTheme.titleMedium),
                   Row(children: [
                     IconButton(
                         onPressed: () => controller.onPressVCondition(false),
@@ -89,6 +58,9 @@ class SettingPage extends GetView<SettingPageController> {
                         onPressed: () => controller.onPressVCondition(true),
                         icon: const Icon(Icons.add)),
                   ]),
+                  Gap.height(16),
+                  Text('물리기 허용 회수',
+                      style: Theme.of(context).textTheme.titleMedium),
                   Row(children: [
                     IconButton(
                         onPressed: () => controller.onPressBacksies(false),
@@ -98,12 +70,18 @@ class SettingPage extends GetView<SettingPageController> {
                         onPressed: () => controller.onPressBacksies(true),
                         icon: const Icon(Icons.add)),
                   ]),
+                  Gap.height(16),
+                  Text('플레이어 마커',
+                      style: Theme.of(context).textTheme.titleMedium),
                   Row(
                     children: [
-                      playerMarker(0),
-                      playerMarker(1),
+                      const SettingPagePlayerMarker(index: 0),
+                      Gap.width(16),
+                      const SettingPagePlayerMarker(index: 1),
                     ],
                   ),
+                  Gap.height(16),
+                  Text('선제 착수', style: Theme.of(context).textTheme.titleMedium),
                   Row(children: [
                     IconButton(
                         onPressed: () => controller.onPressFirstPlayer(false),
@@ -127,17 +105,22 @@ class SettingPage extends GetView<SettingPageController> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.zero,
+        bottomNavigationBar: SafeArea(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                  onPressed: () => Get.back(), child: const Text('취소')),
+                  onPressed: () => Get.back(),
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: Size.fromWidth(buttonWidth)),
+                  child: const Text('취소')),
               ElevatedButton(
                   onPressed: () {
                     final Game game = controller.getGame();
                     Get.offNamed('/game', arguments: {'game': game});
                   },
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: Size.fromWidth(buttonWidth)),
                   child: const Text('게임 시작')),
             ],
           ),

@@ -39,20 +39,20 @@ class SettingPageController extends GetxController {
   }
 
   void onPressVCondition(bool isPlus) {
-    final result = isPlus ? vCondition.value += 1 : vCondition.value -= 1;
+    final result = isPlus ? vCondition.value + 1 : vCondition.value - 1;
     if (!(result >= GameSetting.VICTORY_CONDITION_MIN.value &&
         result <= boardSize.value)) {
-      //TODO: 예외처리
+      Get.snackbar('승리 조건', '허용범위는 최소 3 ~ ${boardSize.value}(보드 사이즈의 크기)입니다.');
       return;
     }
     vCondition.value = result;
   }
 
   void onPressBacksies(bool isPlus) {
-    final result = isPlus ? backsies.value += 1 : backsies.value -= 1;
+    final result = isPlus ? backsies.value + 1 : backsies.value - 1;
     if (!(result >= GameSetting.BACKSIES_MIN.value &&
         result <= GameSetting.BACKSIES_MAX.value)) {
-      //TODO: 예외처리
+      Get.snackbar('물리기 허용 회수', '허용범위는 0 ~ 5 입니다.');
       return;
     }
     backsies.value = result;
