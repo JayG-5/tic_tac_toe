@@ -10,6 +10,7 @@ class Game {
   final Board board;
   Player nowTurn;
   List<Marker>? logs;
+  Player? winner;
 
   Game({
     required this.vCondition,
@@ -19,6 +20,7 @@ class Game {
     required this.board,
     required this.nowTurn,
     this.logs,
+    this.winner,
   }){
 
     logs ??= [];
@@ -31,6 +33,7 @@ class Game {
     Board? board,
     Player? nowTurn,
     List<Marker>? logs,
+    Player? winner,
   }) {
     return Game(
       vCondition: vCondition ?? this.vCondition,
@@ -40,6 +43,7 @@ class Game {
       board: board ?? this.board,
       nowTurn: nowTurn ?? this.nowTurn,
       logs: logs ?? this.logs,
+      winner: winner ?? this.winner,
     );
   }
 
@@ -52,10 +56,11 @@ class Game {
       'board': board.toJson(),
       'nowTurn': nowTurn.toJson(),
       'logs': logs!.map((log) => log.toJson()).toList(),
+
     };
   }
 
-  factory Game.fromJson(Map<String, dynamic> json) {
+  factory Game.fromJson(dynamic json) {
     return Game(
       vCondition: json['vCondition'],
       players: (json['players'] as List).map((e) => Player.fromJson(e)).toList(),
@@ -84,7 +89,8 @@ class Game {
     board.place(marker);
     logs!.add(marker);
     if(board.checkWinner(marker, vCondition)){
-      return [marker.player];
+      winner = marker.player;
+      return [winner!];
     }
     if(board.isFull()){
       return players;
