@@ -91,10 +91,7 @@ class Board {
   bool check(List<Cell> cellList, Marker marker, int vCondition) {
     final int validLength = findMaxConsecutiveChars(
     cellList.map((e) => e.isRight(marker) ? 'o' : 'x').join(), 'o');
-    bool isCheck = vCondition <= validLength;
-    print(cellList.map((e) => e.isRight(marker) ? 'o' : 'x').join());
-    print(validLength);
-    return isCheck;
+    return vCondition <= validLength;
 
   }
 
