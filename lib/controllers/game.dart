@@ -13,6 +13,10 @@ class GamePageController extends GetxController{
   }
 
   void placeMarker(int x, int y){
+    if(game.value!.board.cells[y][x].marker != null){
+      //TODO: 예외처리
+      return;
+    }
     game.value!.placeMarker(x, y);
     game.value = game.value?.copyWith();
   }

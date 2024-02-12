@@ -24,8 +24,6 @@ class Game {
     logs ??= [];
   }
 
-
-
   Game copyWith({
     int? vCondition,
     List<Player>? players,
@@ -85,7 +83,9 @@ class Game {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
     logs!.add(marker);
-    board.checkWinner(marker, vCondition);
+    if(board.checkWinner(marker, vCondition)){
+      //TODO: 이겼을때 처리
+    }
     nextTurn();
   }
 
