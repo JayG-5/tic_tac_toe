@@ -15,9 +15,10 @@ class GamePageController extends GetxController{
   }
 
   void placeMarker(int x, int y) {
-    if(game.value!.board.cells[y][x].marker != null){
+    if(game.value!.board.cells![y][x].marker != null){
       return;
     }
+    game.value = game.value?.copyWith();
 
     switch(game.value!.placeMarker(x, y).length){
       case 1:
@@ -29,8 +30,6 @@ class GamePageController extends GetxController{
         return;
       //TODO: 비김
     }
-
-    game.value = game.value?.copyWith();
   }
 
   void backsies(){

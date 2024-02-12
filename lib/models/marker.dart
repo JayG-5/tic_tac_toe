@@ -27,7 +27,7 @@ class Marker {
     };
   }
 
-  factory Marker.fromJson(Map<String, dynamic> json) {
+  factory Marker.fromJson(dynamic json) {
     return Marker(
       player: Player.fromJson(json['player']),
       x: json['x'],

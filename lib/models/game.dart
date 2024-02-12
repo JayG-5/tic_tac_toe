@@ -56,7 +56,7 @@ class Game {
       'board': board.toJson(),
       'nowTurn': nowTurn.toJson(),
       'logs': logs!.map((log) => log.toJson()).toList(),
-
+      'winner': winner?.toJson(),
     };
   }
 
@@ -69,6 +69,7 @@ class Game {
       board: Board.fromJson(json['board']),
       nowTurn: Player.fromJson(json['nowTurn']),
       logs: (json['logs'] as List).map((e) => Marker.fromJson(e)).toList(),
+      winner: json['winner'] != null ? Player.fromJson(json['winner']) : null
     );
   }
 

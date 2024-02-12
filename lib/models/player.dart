@@ -29,13 +29,13 @@ class Player {
 
   Map<String, dynamic> toJson() {
     return {
-      'marker': iconData.codePoint,
+      'iconData': iconData.codePoint,
       'color': color.value,
       'backsies': backsies,
     };
   }
 
-  factory Player.fromJson(Map<String, dynamic> json) {
+  factory Player.fromJson(dynamic json) {
     return Player(
       iconData: IconData(json['iconData'], fontFamily: 'MaterialIcons'),
       color: Color(json['color']),

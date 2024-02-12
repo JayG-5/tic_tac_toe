@@ -61,7 +61,7 @@ class GamePage extends GetView<GamePageController> {
                     childAspectRatio: 1 / 1,
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
-                    children: controller.game.value!.board.cells
+                    children: controller.game.value!.board.cells!
                         .expand((e) => e)
                         .map((e) => InkWell(
                               onTap: () => controller.placeMarker(e.x, e.y),

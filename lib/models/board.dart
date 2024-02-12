@@ -6,7 +6,7 @@ import 'package:tic_tac_toe/utils.dart';
 
 class Board {
   final int size;
-  late final List<List<Cell>> cells;
+  List<List<Cell>>? cells;
 
   Board({required this.size}) {
     cells = List.generate(
@@ -14,7 +14,7 @@ class Board {
   }
 
   bool isFull(){
-    for(List<Cell> cellY in cells){
+    for(List<Cell> cellY in cells!){
       for(Cell cell in cellY){
         if(cell.isEmpty){
           return false;
@@ -33,13 +33,13 @@ class Board {
   Map<String, dynamic> toJson() {
     return {
       'size': size,
-      'cells': cells
+      'cells': cells!
           .map((row) => row.map((cell) => cell.toJson()).toList())
           .toList(),
     };
   }
 
-  factory Board.fromJson(Map<String, dynamic> json) {
+  factory Board.fromJson(dynamic json) {
     final size = json['size'];
     final cellsJson = json['cells'] as List;
     final cells = cellsJson
@@ -50,25 +50,25 @@ class Board {
     return Board(size: size)..cells = cells;
   }
 
-  void delete(int x, int y) => cells[y][x].delete();
+  void delete(int x, int y) => cells![y][x].delete();
 
-  void place(Marker marker) => cells[marker.y][marker.x].place(marker);
+  void place(Marker marker) => cells![marker.y][marker.x].place(marker);
 
   bool checkRow(Marker marker, int vCondition) =>
-      check(cells[marker.y], marker, vCondition);
+      check(cells![marker.y], marker, vCondition);
 
   bool checkCol(Marker marker, int vCondition) =>
-      check(cells.map((e) => e[marker.x]).toList(), marker, vCondition);
+      check(cells!.map((e) => e[marker.x]).toList(), marker, vCondition);
 
   bool checkLeftTopToRightBottom(Marker marker, int vCondition) {
     List<Cell> cellList = [];
-    int size = cells.length;
+    int size = cells!.length;
 
     int startX = marker.x - min(marker.x, marker.y);
     int startY = marker.y - min(marker.x, marker.y);
 
     for (int i = 0; startX + i < size && startY + i < size; i++) {
-      cellList.add(cells[startX + i][startY + i]);
+      cellList.add(cells![startX + i][startY + i]);
     }
 
     return check(cellList, marker, vCondition);
@@ -76,13 +76,13 @@ class Board {
 
   bool checkRightTopToLeftBottom(Marker marker, int vCondition) {
     List<Cell> cellList = [];
-    int size = cells.length;
+    int size = cells!.length;
 
     int startX = marker.x + min(marker.y, size - 1 - marker.x);
     int startY = marker.y - min(marker.y, size - 1 - marker.x);
 
     for (int i = 0; startX - i >= 0 && startY + i < size; i++) {
-      cellList.add(cells[startX - i][startY + i]);
+      cellList.add(cells![startX - i][startY + i]);
     }
 
     return check(cellList, marker, vCondition);

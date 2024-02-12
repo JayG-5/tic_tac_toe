@@ -31,7 +31,7 @@ class Cell {
     };
   }
 
-  factory Cell.fromJson(Map<String, dynamic> json) {
+  factory Cell.fromJson(dynamic json) {
     return Cell(
       marker: json['marker'] != null ? Marker.fromJson(json['marker']) : null,
       x: json['x'],
