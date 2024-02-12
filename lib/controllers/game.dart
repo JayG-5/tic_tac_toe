@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tic_tac_toe/models/game.dart';
 import 'package:tic_tac_toe/widgets/dialog/draw.dart';
@@ -22,11 +23,11 @@ class GamePageController extends GetxController{
 
     switch(game.value!.placeMarker(x, y).length){
       case 1:
-        Get.dialog(WinnerDialogView(game: game.value!, player: game.value!.logs!.last.player));
+        Get.dialog(WinnerDialogView(game: game.value!, player: game.value!.logs!.last.player),barrierDismissible: false);
         return ;
     //TODO: 이김
       case 2:
-        Get.dialog(DrawDialogView(game: game.value!));
+        Get.dialog(DrawDialogView(game: game.value!),barrierDismissible: false);
         return;
       //TODO: 비김
     }

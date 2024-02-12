@@ -10,16 +10,19 @@ class DrawDialogView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('무승부!'),
-      actions: [
-        ElevatedButton(onPressed: ()async{
-          final box = Hive.box('games');
-          await box.put(game.startTime.toIso8601String(), game.toJson());
-          Get.offAllNamed('/');
-        }, child: const Text('기록하고 홈으로')),
-        ElevatedButton(onPressed: ()=>Get.offAllNamed('/'), child: const Text('홈으로')),
-      ],
+    return PopScope(
+      canPop: false,
+      child: AlertDialog(
+        title: const Text('무승부!'),
+        actions: [
+          ElevatedButton(onPressed: ()async{
+            final box = Hive.box('games');
+            await box.put(game.startTime.toIso8601String(), game.toJson());
+            Get.offAllNamed('/');
+          }, child: const Text('기록하고 홈으로')),
+          ElevatedButton(onPressed: ()=>Get.offAllNamed('/'), child: const Text('홈으로')),
+        ],
+      ),
     );
   }
 }

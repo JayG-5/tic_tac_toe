@@ -12,25 +12,28 @@ class WinnerDialogView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('승리!'),
-      content: Row(
-        children: [
-          const Text('승자: '),
-          Icon(
-            player.iconData,
-            color: player.color,
-          )
+    return PopScope(
+      canPop: false,
+      child: AlertDialog(
+        title: const Text('승리!'),
+        content: Row(
+          children: [
+            const Text('승자: '),
+            Icon(
+              player.iconData,
+              color: player.color,
+            )
+          ],
+        ),
+        actions: [
+          ElevatedButton(onPressed: ()async{
+            final box = Hive.box('games');
+            await box.put(game.startTime.toIso8601String(), game.toJson());
+            Get.offAllNamed('/');
+          }, child: const Text('기록하고 홈으로')),
+          ElevatedButton(onPressed: ()=>Get.offAllNamed('/'), child: const Text('홈으로')),
         ],
       ),
-      actions: [
-        ElevatedButton(onPressed: ()async{
-          final box = Hive.box('games');
-          await box.put(game.startTime.toIso8601String(), game.toJson());
-          Get.offAllNamed('/');
-        }, child: const Text('기록하고 홈으로')),
-        ElevatedButton(onPressed: ()=>Get.offAllNamed('/'), child: const Text('홈으로')),
-      ],
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:tic_tac_toe/models/board.dart';
 import 'package:tic_tac_toe/models/marker.dart';
 import 'package:tic_tac_toe/models/player.dart';
@@ -77,7 +78,7 @@ class Game {
     final popMarker = logs!.last.copyWith(status: false);
     final isBacksies = popMarker.player.doBacksies();
     if (!isBacksies) {
-      //TODO: 무르기 실패 랜더링 다이얼로그나 스낵바
+      Get.snackbar('무르기 실패','남은 무르가가 없습니다');
       return;
     }
     board.delete(popMarker.x, popMarker.y);

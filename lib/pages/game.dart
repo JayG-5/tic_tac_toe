@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tic_tac_toe/controllers/game.dart';
+import 'package:tic_tac_toe/widgets/common/gap.dart';
 
 class GamePage extends GetView<GamePageController> {
   const GamePage({super.key});
@@ -33,6 +34,7 @@ class GamePage extends GetView<GamePageController> {
                     ),
                   ],
                 ),
+                Gap.height(16),
                 RichText(
                   text: TextSpan(children: [
                     WidgetSpan(
@@ -45,12 +47,7 @@ class GamePage extends GetView<GamePageController> {
                     ),
                   ], style: const TextStyle(color: Colors.black)),
                 ),
-                ElevatedButton(
-                    onPressed: () =>controller.backsies(),
-                    child: Text(
-                      '무르기\n(${controller.game.value!.nowTurn.backsies}회 남음)',
-                      textAlign: TextAlign.center,
-                    )),
+                Gap.height(16),
                 Container(
                   color: Colors.grey,
                   width: boxSize,
@@ -80,6 +77,15 @@ class GamePage extends GetView<GamePageController> {
                         .toList(),
                   ),
                 ),
+                Gap.height(40),
+                if (controller.game.value!.logs!.isNotEmpty &&
+                    controller.game.value!.logs!.last.status)
+                  ElevatedButton(
+                      onPressed: () => controller.backsies(),
+                      child: Text(
+                        '무르기\n(${controller.game.value!.logs!.last.player.backsies}회 남음)',
+                        textAlign: TextAlign.center,
+                      )),
               ],
             ),
           ),

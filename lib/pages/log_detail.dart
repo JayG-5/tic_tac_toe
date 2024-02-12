@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tic_tac_toe/controllers/log_detail.dart';
 import 'package:tic_tac_toe/models/marker.dart';
+import 'package:tic_tac_toe/widgets/common/gap.dart';
 
 class LogDetailPage extends GetView<LogDetailPageController> {
   const LogDetailPage({super.key});
@@ -65,6 +66,7 @@ class LogDetailPage extends GetView<LogDetailPageController> {
                       .toList(),
                 ),
               ),
+              Gap.height(10),
               Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
