@@ -13,6 +13,17 @@ class Board {
         size, (y) => List.generate(size, (x) => Cell(x: x, y: y)));
   }
 
+  bool isFull(){
+    for(List<Cell> cellY in cells){
+      for(Cell cell in cellY){
+        if(cell.isEmpty){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   Board copyWith({int? size}) {
     return Board(
       size: size ?? this.size,

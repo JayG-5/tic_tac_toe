@@ -79,14 +79,18 @@ class Game {
     nextTurn();
   }
 
-  void placeMarker(int x, int y) {
+  List<Player> placeMarker(int x, int y) {
     final marker = Marker(player: nowTurn, x: x, y: y);
     board.place(marker);
     logs!.add(marker);
     if(board.checkWinner(marker, vCondition)){
-      //TODO: 이겼을때 처리
+      return [marker.player];
+    }
+    if(board.isFull()){
+      return players;
     }
     nextTurn();
+    return [];
   }
 
   void nextTurn() =>

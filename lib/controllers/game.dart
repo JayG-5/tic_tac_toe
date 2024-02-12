@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tic_tac_toe/models/game.dart';
+import 'package:tic_tac_toe/widgets/dialog/draw.dart';
+import 'package:tic_tac_toe/widgets/dialog/winner.dart';
 
 class GamePageController extends GetxController{
   GamePageController(Game game){
@@ -12,12 +14,22 @@ class GamePageController extends GetxController{
     return GamePageController(game);
   }
 
-  void placeMarker(int x, int y){
+  void placeMarker(int x, int y) {
     if(game.value!.board.cells[y][x].marker != null){
-      //TODO: 예외처리
       return;
     }
-    game.value!.placeMarker(x, y);
+
+    switch(game.value!.placeMarker(x, y).length){
+      case 1:
+        Get.dialog(WinnerDialogView(game: game.value!, player: game.value!.logs!.last.player));
+        return ;
+    //TODO: 이김
+      case 2:
+        Get.dialog(DrawDialogView(game: game.value!));
+        return;
+      //TODO: 비김
+    }
+
     game.value = game.value?.copyWith();
   }
 

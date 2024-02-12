@@ -6,7 +6,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-  await Hive.openBox('experts');
+  await Hive.openBox('games');
 
   runApp(const MyApp());
 }
