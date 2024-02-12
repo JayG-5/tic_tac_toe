@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tic_tac_toe/controllers/game.dart';
+import 'package:tic_tac_toe/controllers/log_detail.dart';
 import 'package:tic_tac_toe/controllers/setting.dart';
+import 'package:tic_tac_toe/pages/log_detail.dart';
 
 import 'pages/game.dart';
 import 'pages/home.dart';
@@ -18,6 +20,7 @@ class AppRoutes {
         ),
         AppRoute('/game', () => const GamePage(), bindings: GamePageBinding()),
         AppRoute('/log', () => const LogPage()),
+        AppRoute('/detail', () => const LogDetailPage(),bindings: LogDetailPageBinding()),
       ]
           .map(
             (route) => GetPage(

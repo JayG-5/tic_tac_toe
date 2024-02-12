@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:tic_tac_toe/models/game.dart';
@@ -35,7 +36,7 @@ class LogPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(),
             body: box.values.isEmpty
-                ? Center(child: Text('기록된 게임이 없습니다.'))
+                ? const Center(child: Text('기록된 게임이 없습니다.'))
                 : ListView.separated(
                     itemBuilder: (context, index) {
                       final Game game = Game.fromJson(box.getAt(index));
@@ -53,7 +54,8 @@ class LogPage extends StatelessWidget {
                         ),
                         // trailing: IconButton(
                         //     icon: Icon(Icons.delete), onPressed: () {}),
-                        onTap: () {},
+                        onTap: () =>
+                            Get.toNamed('/detail', arguments: {'game': game}),
                       );
                     },
                     separatorBuilder: (context, index) => Divider(),

@@ -15,7 +15,7 @@ class LogDetailPageController extends GetxController{
 
 }
 
-class GamePageBinding extends Bindings {
+class LogDetailPageBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<LogDetailPageController>(() => LogDetailPageController.withGetX());
