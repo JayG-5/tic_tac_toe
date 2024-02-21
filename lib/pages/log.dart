@@ -58,7 +58,7 @@ class LogPage extends StatelessWidget {
                             Get.toNamed('/detail', arguments: {'game': game}),
                       );
                     },
-                    separatorBuilder: (context, index) => Divider(),
+                    separatorBuilder: (context, index) => const Divider(),
                     itemCount: box.values.length),
           );
         });
